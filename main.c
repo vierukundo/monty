@@ -1,6 +1,6 @@
 #include "monty.h"
 #include <stdio.h>
-#define BUFFER_SIZE 120
+#define BUFFER_SIZE 1024
 /**
  * main - main entry
  * @ac: number of arguments
@@ -16,7 +16,7 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		fprintf(stderr, "USAGE: monty %s\n", av[1]);
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	fp = fopen(av[1], "r");

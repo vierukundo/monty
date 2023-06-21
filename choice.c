@@ -24,14 +24,14 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 		argument = strtok(NULL, " \t\n");
 		if (argument == NULL)
 		{
-			fprintf(stderr, "L%d: unknown instruction <opcode>\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 		for (i = 0; argument[i] != '\0'; i++)
 		{
 			if (!isdigit(argument[i]))
 			{
-				fprintf(stderr, "L%d: unknown instruction %s\n", line_number, argument);
+				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -44,7 +44,7 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 	}
 	else
 	{
-		fprintf(stderr, "L%d: unknown instruction <opcode>\n", line_number);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
 		exit(EXIT_FAILURE);
 	}
 }
