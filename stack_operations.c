@@ -5,6 +5,7 @@
  * @line_number: line of instruction
  * Return: nothing
  */
+int element;
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
