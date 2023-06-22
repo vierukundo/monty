@@ -18,7 +18,8 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"pop", pop}
+		{"pop", pop},
+		{"nop", nop}
 	};
 
 	if (argument == NULL)
