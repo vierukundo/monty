@@ -21,6 +21,7 @@ void add(stack_t **stack, unsigned int line_number)
 	*stack = (*stack)->next;
 	free(top_node);
 }
+
 /**
  * nop - doesn’t do anything
  * @stack: pointer to stack
