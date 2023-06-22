@@ -71,15 +71,37 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
-
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L<line_number>: can't pint, stack empty");
+		fprintf(stderr, "L<%d>: can't pint, stack empty", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		printf("%d\n", (*stack)->n);
 	}
+}
+/**
+ * swap - swaps the top two elements of the stack
+ * @stack: pointer to stack
+ * @line_number: line of instruction
+ * Return: nothing
+ */
+void swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top_node = *stack, *second_node;
+
+	if (top_node == NULL || top_node->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	second_node = top_node->next;
+	top_node->prev = second_node;
+	top_node->next = second_node->next;
+	second_node->prev = NULL;
+	second_node->next = top_node;
+	if (top_node->next != NULL)
+		top_node->next->prev = top_node;
+	*stack = second_node;
 }

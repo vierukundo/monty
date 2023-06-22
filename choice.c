@@ -46,12 +46,13 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 	char *argument = NULL;
 	int i;
 	instruction_t stack_op[] = {
-		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint}
+		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
+		{"swap", swap}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 5; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
