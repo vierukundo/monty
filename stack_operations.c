@@ -20,7 +20,9 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node->next = *stack;
 	new_node->prev = NULL;
 	if (*stack != NULL)
+	{
 		(*stack)->prev = new_node;
+	}
 	*stack = new_node;
 }
 /**
@@ -41,7 +43,9 @@ void pop(stack_t **stack, unsigned int line_number)
 	top_node = *stack;
 	*stack = (*stack)->next;
 	if (*stack != NULL)
+	{
 		(*stack)->prev = NULL;
+	}
 	free(top_node);
 }
 /**
