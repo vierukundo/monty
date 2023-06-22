@@ -1,5 +1,6 @@
 #include "monty.h"
 #include <ctype.h>
+
 int element;
 /**
  * validate_push_argument - validates the argument for push instruction
@@ -14,6 +15,9 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 	instruction_t stack_op[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
 		{"pop", pop}
 	};
 
