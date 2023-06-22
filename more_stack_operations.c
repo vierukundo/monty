@@ -32,5 +32,6 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void)stack;
 	(void)line_number;
 
-	exit(EXIT_SUCCESS);
+	if (line_number)
+		return;
 }

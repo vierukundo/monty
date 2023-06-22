@@ -11,7 +11,7 @@ int main(int ac, char **av)
 {
 	FILE *fp;
 	char buffer[BUFFER_SIZE];
-	int line = 0;
+	int line = 1;
 	stack_t *stack = NULL;
 
 	if (ac != 2)
@@ -27,8 +27,8 @@ int main(int ac, char **av)
 	}
 	while (fgets(buffer, BUFFER_SIZE, fp) != NULL)
 	{
-		line++;
 		stack_op_choice(buffer, line, &stack);
+		line++;
 	}
 	fclose(fp);
 	return (0);

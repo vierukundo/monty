@@ -19,14 +19,14 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 
 	if (argument == NULL)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	for (i = 0; argument[i] != '\0'; i++)
 	{
 		if (!isdigit(argument[i]))
 		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 	}
