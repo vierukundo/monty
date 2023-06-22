@@ -32,11 +32,10 @@ void push(stack_t **stack, unsigned int line_number)
 void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top_node;
-	(void)line_number;
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "Error: Stack Underflow\n");
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	top_node = *stack;
@@ -56,9 +55,29 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *current_node = *stack;
 	(void)line_number;
 
+	if (current_node == NULL)
+		exit(EXIT_FAILURE);
 	while (current_node != NULL)
 	{
 		printf("%d\n", current_node->n);
 		current_node = current_node->next;
+	}
+}
+/**
+ * pint - prints the value at the top of the stack, followed by a new line
+ * @stack: pointer to stack
+ * @line_number: line of instruction
+ * Return: nothing
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		printf("%d\n", (*stack)->n);
 	}
 }

@@ -1,15 +1,15 @@
 #include "monty.h"
 #include <ctype.h>
+int element;
 /**
- * stack_op_choice - chooses stack operation
- * @line: line of instructions
- * @line_number: number of line
- * Return: nothing
+ * validate_push_argument - validates the argument for push instruction
+ * and if is integer, it calls push function.
+ * @argument: argument to validate
+ * @line_number: line number
+ * @stack: pointer to the stack
  */
-int element = 0;
-void stack_op_choice(char *line, int line_number, stack_t **stack)
+void validate_push_argument(char *argument, int line_number, stack_t **stack)
 {
-	char *instruction = strtok(line, " \t\n"), *argument;
 	int i;
 	instruction_t stack_op[] = {
 		{"push", push},
@@ -17,34 +17,56 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 		{"pop", pop}
 	};
 
-	if (instruction == NULL)
-		return;
-	if (strcmp(instruction, "push") == 0)
+	if (argument == NULL)
 	{
-		argument = strtok(NULL, " \t\n");
-		if (argument == NULL)
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	for (i = 0; argument[i] != '\0'; i++)
+	{
+		if (!isdigit(argument[i]))
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
-		for (i = 0; argument[i] != '\0'; i++)
+	}
+	element = atoi(argument);
+	stack_op[0].f(stack, line_number);
+}
+/**
+ * stack_op_choice - chooses stack operation
+ * @line: line of instructions
+ * @line_number: number of line
+ * @stack: pointer to stack
+ * Return: nothing
+ */
+void stack_op_choice(char *line, int line_number, stack_t **stack)
+{
+	char *instruction = strtok(line, " \t\n");
+	char *argument = NULL;
+	int i;
+	instruction_t stack_op[] = {
+		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint}
+	};
+
+	if (instruction == NULL)
+		return;
+	for (i = 0; i < 4; i++)
+	{
+		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
-			if (!isdigit(argument[i]))
+			if (i == 0) /* push instruction */
 			{
-				fprintf(stderr, "L%d: usage: push integer\n", line_number);
-				exit(EXIT_FAILURE);
+				argument = strtok(NULL, " \t\n");
+				validate_push_argument(argument, line_number, stack);
 			}
+			else
+			{
+				stack_op[i].f(stack, line_number);
+			}
+			return;
 		}
-		element = atoi(argument);
-		stack_op[0].f(stack, line_number);
 	}
-	else if (strcmp(instruction, "pall") == 0)
-	{
-		stack_op[1].f(stack, line_number);
-	}
-	else
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
-		exit(EXIT_FAILURE);
-	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
+	exit(EXIT_FAILURE);
 }

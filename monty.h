@@ -36,4 +36,6 @@ void push(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void stack_op_choice(char *line, int line_number, stack_t **stack);
+void validate_push_argument(char *argument, int line_number, stack_t **stack);
+void pint(stack_t **stack, unsigned int line_number);
 #endif
