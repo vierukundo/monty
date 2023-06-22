@@ -30,7 +30,5 @@ void add(stack_t **stack, unsigned int line_number)
 void nop(stack_t **stack, unsigned int line_number)
 {
 	(void)stack;
-
-	if (line_number)
-		return;
+	(void)line_number;
 }
