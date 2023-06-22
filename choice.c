@@ -35,6 +35,18 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 	stack_op[0].f(stack, line_number);
 }
 /**
+ * comment_checker - checks if the first non-space
+ * character of a line is #, treat this line as a comment (don’t do anything).
+ * @c: first non-space character
+ * Return: 1 on success. -1 otherwise.
+ */
+int comment_checker(char c)
+{
+	if (c == '#')
+		return (1);
+	return (-1);
+}
+/**
  * stack_op_choice - chooses stack operation
  * @line: line of instructions
  * @line_number: number of line
@@ -49,12 +61,12 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 	instruction_t stack_op[] = {
 		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
 		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
-		{"div", divide}, {"mul", mul}, {"mod", mod}
+		{"div", divide}, {"mul", mul}, {"mod", mod}, {"pchar", pchar}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 11; i++)
+	for (i = 0; i < 12; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
@@ -69,6 +81,8 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 			}
 			return;
 		}
+		else if (comment_checker(*instruction) == 1)
+			return;
 	}
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
 	exit(EXIT_FAILURE);
