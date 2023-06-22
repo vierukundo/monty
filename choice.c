@@ -13,13 +13,9 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 {
 	int i;
 	instruction_t stack_op[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"pint", pint},
-		{"nop", nop}
+		{"push", push}, {"pall", pall}, {"pop", pop}, {"swap", swap},
+		{"add", add}, {"pint", pint}, {"nop", nop}, {"sub", sub},
+		{"div", divide}, {"mul", mul}, {"mod", mod}
 	};
 
 	if (argument == NULL)
@@ -52,12 +48,13 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 	int i;
 	instruction_t stack_op[] = {
 		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
-		{"swap", swap}, {"add", add}, {"nop", nop}
+		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
+		{"div", divide}, {"mul", mul}, {"mod", mod}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 11; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
