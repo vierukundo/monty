@@ -21,6 +21,7 @@ void add(stack_t **stack, unsigned int line_number)
 	*stack = (*stack)->next;
 	free(top_node);
 }
+
 /**
  * sub - subtracts the top element of the stack
  * from the second top element of the stack
