@@ -66,12 +66,13 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
 		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
 		{"div", divide}, {"mul", mul}, {"mod", mod}, {"pchar", pchar},
-		{"pstr", pstr}, {"rotl", rotl}, {"rotr", rotr}
+		{"pstr", pstr}, {"rotl", rotl}, {"rotr", rotr}, {"stack", _stack},
+		{"queue", queue}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 15; i++)
+	for (i = 0; i < 17; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
