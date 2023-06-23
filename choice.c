@@ -28,6 +28,8 @@ void validate_push_argument(char *argument, unsigned int line, stack_t **stack)
 	{
 		if (!isdigit(argument[i]))
 		{
+			if (argument[i] == '-' && i == 0)
+				continue;
 			free_stack(stack);
 			fprintf(stderr, "L%u: usage: push integer\n", line);
 			exit(EXIT_FAILURE);
