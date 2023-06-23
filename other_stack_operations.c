@@ -33,7 +33,8 @@ void pchar(stack_t **stack, unsigned int line_number)
 	putchar('\n');
 }
 /**
- * pstr - prints the string starting at the top of the stack, followed by a new line
+ * pstr - prints the string starting at the
+ * top of the stack, followed by a new line
  * @stack: pointer to stack
  * @line_number: line of instruction
  * Return: nothing
@@ -73,4 +74,29 @@ void free_stack(stack_t **stack)
 		free(temp);
 	}
 	*stack = NULL;
+}
+/**
+ * rotl - rotates the stack to the top
+ * @stack: pointer to stack
+ * @line_number: line of instruction
+ * Return: nothing
+ * Description: The top element of the stack becomes the last one,
+ * and the second top element of the stack becomes the first one
+ */
+void rotl(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top_node = *stack;
+	stack_t *second_node = top_node->next;
+	stack_t *last_node = *stack;
+	(void)line_number;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+		return;
+	while (last_node->next != NULL)
+		last_node = last_node->next;
+	last_node->next = top_node;
+	top_node->prev = last_node;
+	*stack = second_node;
+	second_node->prev = NULL;
+	top_node->next = NULL;
 }

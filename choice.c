@@ -6,10 +6,10 @@ int element;
  * validate_push_argument - validates the argument for push instruction
  * and if is integer, it calls push function.
  * @argument: argument to validate
- * @line_number: line number
+ * @line: line number
  * @stack: pointer to the stack
  */
-void validate_push_argument(char *argument, int line_number, stack_t **stack)
+void validate_push_argument(char *argument, unsigned int line, stack_t **stack)
 {
 	int i;
 	instruction_t stack_op[] = {
@@ -21,7 +21,7 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 	if (argument == NULL)
 	{
 		free_stack(stack);
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line);
 		exit(EXIT_FAILURE);
 	}
 	for (i = 0; argument[i] != '\0'; i++)
@@ -29,16 +29,16 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 		if (!isdigit(argument[i]))
 		{
 			free_stack(stack);
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
+			fprintf(stderr, "L%u: usage: push integer\n", line);
 			exit(EXIT_FAILURE);
 		}
 	}
 	element = atoi(argument);
-	stack_op[0].f(stack, line_number);
+	stack_op[0].f(stack, line);
 }
 /**
  * comment_checker - checks if the first non-space
- * character of a line is #, treat this line as a comment (don’t do anything).
+ * character of a line is #, treat this line as a comment(don’t do anything)
  * @c: first non-space character
  * Return: 1 on success. -1 otherwise.
  */
@@ -64,12 +64,12 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
 		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
 		{"div", divide}, {"mul", mul}, {"mod", mod}, {"pchar", pchar},
-		{"pstr", pstr}
+		{"pstr", pstr}, {"rotl", rotl}, {"rotr", rotr}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 13; i++)
+	for (i = 0; i < 15; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
