@@ -30,6 +30,7 @@ int main(int ac, char **av)
 		stack_op_choice(buffer, line, &stack);
 		line++;
 	}
+	free_stack(&stack);
 	fclose(fp);
 	return (0);
 }

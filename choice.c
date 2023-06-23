@@ -20,6 +20,7 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 
 	if (argument == NULL)
 	{
+		free_stack(stack);
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -27,6 +28,7 @@ void validate_push_argument(char *argument, int line_number, stack_t **stack)
 	{
 		if (!isdigit(argument[i]))
 		{
+			free_stack(stack);
 			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
@@ -61,12 +63,13 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 	instruction_t stack_op[] = {
 		{"push", push}, {"pall", pall}, {"pop", pop}, {"pint", pint},
 		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
-		{"div", divide}, {"mul", mul}, {"mod", mod}, {"pchar", pchar}
+		{"div", divide}, {"mul", mul}, {"mod", mod}, {"pchar", pchar},
+		{"pstr", pstr}
 	};
 
 	if (instruction == NULL)
 		return;
-	for (i = 0; i < 12; i++)
+	for (i = 0; i < 13; i++)
 	{
 		if (strcmp(instruction, stack_op[i].opcode) == 0)
 		{
@@ -84,6 +87,7 @@ void stack_op_choice(char *line, int line_number, stack_t **stack)
 		else if (comment_checker(*instruction) == 1)
 			return;
 	}
+	free_stack(stack);
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
 	exit(EXIT_FAILURE);
 }
